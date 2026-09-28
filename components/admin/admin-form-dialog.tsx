@@ -21,6 +21,7 @@ export function AdminFormDialog({ action, trigger, title, children, successMessa
   useEffect(() => {
     if (state.success) {
       toast.success(successMessage ?? "Saved");
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- closes the dialog in reaction to the server action's result
       setOpen(false);
     }
   }, [state.success, successMessage]);
