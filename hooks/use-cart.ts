@@ -7,6 +7,8 @@ import type { CartLine } from "@/types/cart";
 interface CartState {
   lines: CartLine[];
   isOpen: boolean;
+  couponCode: string | null;
+  discountAmount: number;
   open: () => void;
   close: () => void;
   addItem: (line: CartLine) => void;
@@ -17,6 +19,8 @@ interface CartState {
     color: string | null,
     quantity: number
   ) => void;
+  setCoupon: (code: string, discountAmount: number) => void;
+  clearCoupon: () => void;
   clear: () => void;
 }
 
@@ -29,6 +33,8 @@ export const useCart = create<CartState>()(
     (set, get) => ({
       lines: [],
       isOpen: false,
+      couponCode: null,
+      discountAmount: 0,
       open: () => set({ isOpen: true }),
       close: () => set({ isOpen: false }),
       addItem: (line) => {
@@ -58,7 +64,9 @@ export const useCart = create<CartState>()(
             )
             .filter((l) => l.quantity > 0),
         }),
-      clear: () => set({ lines: [] }),
+      setCoupon: (code, discountAmount) => set({ couponCode: code, discountAmount }),
+      clearCoupon: () => set({ couponCode: null, discountAmount: 0 }),
+      clear: () => set({ lines: [], couponCode: null, discountAmount: 0 }),
     }),
     { name: "zarnigaar-cart" }
   )
