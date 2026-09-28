@@ -403,6 +403,12 @@ export interface Database {
           },
         ];
       };
+      contact_messages: {
+        Row: { id: string; name: string; email: string; message: string; created_at: string };
+        Insert: { id?: string; name: string; email: string; message: string };
+        Update: Partial<{ name: string; email: string; message: string }>;
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;
