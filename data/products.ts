@@ -80,17 +80,53 @@ export async function getRelatedProducts(product: Product, limit = 4): Promise<P
 }
 
 export async function searchProducts(query: string): Promise<Product[]> {
-  if (!query.trim()) return [];
+  const term = query.trim();
+  if (!term) return [];
   const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("products")
-    .select(PRODUCT_SELECT)
-    .eq("status", "active")
-    .ilike("name", `%${query}%`)
-    .limit(24);
+  const like = `%${term}%`;
 
-  if (error || !data) return [];
-  return data.map(mapProduct);
+  // Products matched by name are one query; products reachable through a
+  // matching category or collection name are two more, since PostgREST
+  // can't OR a filter across an embedded foreign table in one request.
+  const [byName, matchingCategories, matchingCollections] = await Promise.all([
+    supabase.from("products").select(PRODUCT_SELECT).eq("status", "active").ilike("name", like).limit(24),
+    supabase.from("categories").select("id").ilike("name", like),
+    supabase.from("collections").select("id").ilike("name", like),
+  ]);
+
+  const results = new Map<string, Product>();
+  for (const row of byName.data ?? []) results.set(row.id, mapProduct(row));
+
+  const categoryIds = (matchingCategories.data ?? []).map((c) => c.id);
+  if (categoryIds.length > 0) {
+    const { data } = await supabase
+      .from("products")
+      .select(PRODUCT_SELECT)
+      .eq("status", "active")
+      .in("category_id", categoryIds)
+      .limit(24);
+    for (const row of data ?? []) results.set(row.id, mapProduct(row));
+  }
+
+  const collectionIds = (matchingCollections.data ?? []).map((c) => c.id);
+  if (collectionIds.length > 0) {
+    const { data: links } = await supabase
+      .from("collection_products")
+      .select("product_id")
+      .in("collection_id", collectionIds);
+    const productIds = [...new Set((links ?? []).map((l) => l.product_id))];
+    if (productIds.length > 0) {
+      const { data } = await supabase
+        .from("products")
+        .select(PRODUCT_SELECT)
+        .eq("status", "active")
+        .in("id", productIds)
+        .limit(24);
+      for (const row of data ?? []) results.set(row.id, mapProduct(row));
+    }
+  }
+
+  return [...results.values()];
 }
 
 export async function getCollectionProducts(
