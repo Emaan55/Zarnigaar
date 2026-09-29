@@ -17,7 +17,7 @@ const body = Jost({
 
 export const metadata: Metadata = {
   title: {
-    default: "Zarnigaar — Timeless Elegance, Everyday",
+    default: "Zarnigaar | Timeless Elegance, Everyday",
     template: "%s | Zarnigaar",
   },
   description:

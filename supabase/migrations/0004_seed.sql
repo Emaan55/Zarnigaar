@@ -57,7 +57,7 @@ insert into public.faqs (question, answer, category, position) values
   ('What are the shipping charges?', 'We offer flat-rate shipping across Pakistan, calculated at checkout based on your city.', 'shipping', 1),
   ('How long does delivery take?', 'Orders are typically delivered within 3-7 business days depending on your location.', 'shipping', 2),
   ('Is Cash on Delivery available?', 'Yes, COD is available across Pakistan on all orders.', 'cod', 1),
-  ('Is online payment secure?', 'Yes. Online payments are processed through a secure, PCI-compliant gateway — we never store your card details.', 'payments', 1),
+  ('Is online payment secure?', 'Yes. Online payments are processed through a secure, PCI-compliant gateway, and we never store your card details.', 'payments', 1),
   ('What is your return policy?', 'Unused items in original condition with tags attached can be returned within 7 days of delivery.', 'returns', 1),
   ('How do I exchange an item?', 'Reach out via our Contact page with your order number and we will arrange a size or item exchange.', 'exchanges', 1),
   ('How do I find my size?', 'Refer to the Size Guide on every product page for detailed measurements.', 'sizing', 1),

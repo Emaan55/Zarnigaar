@@ -44,7 +44,7 @@ export function NewArrivals({ products }: { products: Product[] }) {
 
       {filtered.length === 0 ? (
         <p className="mt-16 text-center text-sm text-muted-foreground">
-          No products yet in this category — check back soon.
+          No products yet in this category. Check back soon.
         </p>
       ) : (
         <div className="mt-10 grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-6">

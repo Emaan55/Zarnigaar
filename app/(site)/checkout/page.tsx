@@ -226,7 +226,7 @@ export default function CheckoutPage() {
                               Secure Online Payment
                             </Label>
                             <p className="text-xs text-muted-foreground">
-                              Coming soon — choose Cash on Delivery for now.
+                              Coming soon. Choose Cash on Delivery for now.
                             </p>
                           </div>
                         </label>

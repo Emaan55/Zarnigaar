@@ -25,7 +25,7 @@ export default async function AdminCollectionDetailPage({
       <Link href="/admin/collections" className="inline-flex w-fit items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.5} /> Back to Collections
       </Link>
-      <h1 className="font-heading text-2xl">{collection.name} — Products</h1>
+      <h1 className="font-heading text-2xl">{collection.name}: Products</h1>
       <CollectionProductsForm
         collectionId={id}
         products={products ?? []}

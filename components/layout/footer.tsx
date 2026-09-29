@@ -32,7 +32,7 @@ export function Footer() {
         <div className="sm:col-span-2 lg:col-span-2">
           <Image src="/logo.png" alt="Zarnigaar" width={64} height={64} className="h-14 w-14 object-contain" />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-            Timeless Pakistani fashion — premium lawn, embroidered clothing and signature scarves,
+            Timeless Pakistani fashion: premium lawn, embroidered clothing and signature scarves,
             crafted for the modern woman.
           </p>
           <div className="mt-5 flex items-center gap-4">

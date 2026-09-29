@@ -18,5 +18,5 @@ export async function sendContactMessage(input: ContactInput): Promise<ContactRe
   const { error } = await supabase.from("contact_messages").insert(parsed.data);
   if (error) return { ok: false, message: "Could not send your message. Please try again." };
 
-  return { ok: true, message: "Thanks — we'll get back to you soon." };
+  return { ok: true, message: "Thanks, we'll get back to you soon." };
 }

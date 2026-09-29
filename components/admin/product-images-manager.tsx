@@ -52,7 +52,7 @@ export function ProductImagesManager({ productId, images }: { productId: string;
       </div>
 
       {images.length === 0 ? (
-        <p className="mt-4 text-sm text-muted-foreground">No images yet — product cards will show a placeholder.</p>
+        <p className="mt-4 text-sm text-muted-foreground">No images yet. Product cards will show a placeholder.</p>
       ) : (
         <div className="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-4">
           {images.map((img) => (

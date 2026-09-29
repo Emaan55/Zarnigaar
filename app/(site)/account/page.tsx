@@ -38,7 +38,7 @@ export default async function AccountPage() {
         <div>
           <h2 className="font-heading text-xl">Profile</h2>
           <div className="mt-4 flex flex-col gap-1 text-sm">
-            <p className="font-medium">{profile?.full_name || "—"}</p>
+            <p className="font-medium">{profile?.full_name || "N/A"}</p>
             <p className="text-muted-foreground">{user.email}</p>
             {profile?.phone && <p className="text-muted-foreground">{profile.phone}</p>}
           </div>

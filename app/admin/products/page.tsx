@@ -58,7 +58,7 @@ export default async function AdminProductsPage() {
                     </div>
                   </TableCell>
                   <TableCell className="text-muted-foreground">{product.sku}</TableCell>
-                  <TableCell className="text-muted-foreground">{product.categories?.name ?? "—"}</TableCell>
+                  <TableCell className="text-muted-foreground">{product.categories?.name ?? "N/A"}</TableCell>
                   <TableCell>
                     {formatPrice(product.sale_price ?? product.price)}
                     {product.sale_price && (
