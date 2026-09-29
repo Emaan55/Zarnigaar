@@ -8,7 +8,7 @@ import type { FormState } from "@/actions/admin/categories";
 
 interface AdminFormDialogProps {
   action: (prevState: FormState, formData: FormData) => Promise<FormState>;
-  trigger: React.ReactNode;
+  trigger: React.ReactElement;
   title: string;
   children: React.ReactNode;
   successMessage?: string;
@@ -28,7 +28,11 @@ export function AdminFormDialog({ action, trigger, title, children, successMessa
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger render={<span />}>{trigger}</DialogTrigger>
+      {/* `trigger` is always a real <button> (or our Button component),
+          so it becomes the trigger's rendered element directly — no
+          wrapping <span>, which would nest an interactive element inside
+          another one and misreport its native-button-ness to Base UI. */}
+      <DialogTrigger render={trigger} />
       <DialogContent className="max-w-lg bg-cream">
         <DialogHeader>
           <DialogTitle className="font-heading text-xl font-normal">{title}</DialogTitle>
