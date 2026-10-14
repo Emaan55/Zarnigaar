@@ -1,3 +1,4 @@
+import { DealImageField } from "@/components/admin/deal-image-field";
 import { Plus } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
@@ -30,10 +31,7 @@ function DealFields({ defaults }: { defaults?: DealDefaults }) {
         <Label htmlFor="description">Description</Label>
         <Textarea id="description" name="description" defaultValue={defaults?.description} rows={2} />
       </div>
-      <div className="grid gap-1.5">
-        <Label htmlFor="imageUrl">Image URL</Label>
-        <Input id="imageUrl" name="imageUrl" defaultValue={defaults?.image_url} placeholder="From Media Library" />
-      </div>
+      <DealImageField defaultValue={defaults?.image_url} />
       <div className="grid grid-cols-2 gap-4">
         <div className="grid gap-1.5">
           <Label htmlFor="ctaLabel">CTA Label</Label>

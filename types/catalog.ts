@@ -14,6 +14,10 @@ export interface Product {
   slug: string;
   name: string;
   description: string;
+  fabricDetails: string;
+  additionalDetails: string;
+  careInstructions: string;
+  designPhilosophy: string;
   price: number;
   salePrice: number | null;
   sku: string;

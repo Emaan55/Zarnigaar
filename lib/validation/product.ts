@@ -7,6 +7,10 @@ export const productSchema = z.object({
     .min(2, "Slug is required")
     .regex(/^[a-z0-9-]+$/, "Slug must be lowercase letters, numbers and hyphens"),
   description: z.string().min(1, "Description is required"),
+  fabricDetails: z.string().max(10000).optional(),
+  additionalDetails: z.string().max(10000).optional(),
+  careInstructions: z.string().max(10000).optional(),
+  designPhilosophy: z.string().max(10000).optional(),
   price: z.coerce.number().positive("Price must be greater than 0"),
   salePrice: z.coerce.number().positive().optional().or(z.literal("")),
   sku: z.string().min(2, "SKU is required"),

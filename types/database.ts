@@ -88,6 +88,10 @@ export interface Database {
           slug: string;
           name: string;
           description: string;
+          fabric_details: string | null;
+          additional_details: string | null;
+          care_instructions: string | null;
+          design_philosophy: string | null;
           price: number;
           sale_price: number | null;
           sku: string;

@@ -33,6 +33,14 @@ export default async function ProductDetailPage({
         <ProductGallery images={product.images} seed={product.slug} name={product.name} />
         <div>
           <ProductActions product={product} />
+          <div className="mt-8 divide-y divide-border">
+            {[{ label: "Fabric details", value: product.fabricDetails }, { label: "Additional article details", value: product.additionalDetails }, { label: "Care instructions", value: product.careInstructions }, { label: "Design philosophy", value: product.designPhilosophy }].filter((detail) => detail.value).map((detail) => (
+              <section key={detail.label} className="py-4">
+                <h2 className="mb-2 font-medium">{detail.label}</h2>
+                <p className="whitespace-pre-wrap text-sm text-muted-foreground">{detail.value}</p>
+              </section>
+            ))}
+          </div>
           <DeliveryInfo />
         </div>
       </div>

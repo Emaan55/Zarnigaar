@@ -17,6 +17,7 @@ import { cn } from "cn";
 
 const LINKS = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin/customers", label: "Customers", icon: ShoppingBag },
   { href: "/admin/orders", label: "Orders", icon: ShoppingBag },
   { href: "/admin/products", label: "Products", icon: Shirt },
   { href: "/admin/categories", label: "Categories", icon: FolderTree },

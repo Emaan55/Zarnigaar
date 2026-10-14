@@ -12,7 +12,7 @@ export default async function HomePage() {
     <>
       <Hero />
       <NewArrivals products={products} />
-      <EditorialGrid deal={deals[0] ?? null} />
+      <EditorialGrid deals={deals} />
       <SeasonalFavorites />
     </>
   );

@@ -1,3 +1,4 @@
+import { isSafeNavigation } from "@/lib/validation/deal";
 import type { Tables } from "@/types/database";
 import type { Category, Collection, Deal, FaqItem, Product, ProductCategory } from "@/types/catalog";
 
@@ -18,6 +19,10 @@ export function mapProduct(row: ProductRow): Product {
     slug: row.slug,
     name: row.name,
     description: row.description,
+    fabricDetails: row.fabric_details ?? "",
+    additionalDetails: row.additional_details ?? "",
+    careInstructions: row.care_instructions ?? "",
+    designPhilosophy: row.design_philosophy ?? "",
     price: Number(row.price),
     salePrice: row.sale_price !== null ? Number(row.sale_price) : null,
     sku: row.sku,
@@ -62,7 +67,7 @@ export function mapDeal(row: Tables<"deals">): Deal {
     description: row.description ?? "",
     imageUrl: row.image_url ?? "",
     ctaLabel: row.cta_label ?? "Shop Now",
-    ctaHref: row.cta_href ?? "/",
+    ctaHref: row.cta_href && isSafeNavigation(row.cta_href) ? row.cta_href : "/",
     startsAt: row.starts_at ?? "",
     endsAt: row.ends_at ?? "",
     active: row.active,

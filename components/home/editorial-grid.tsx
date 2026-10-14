@@ -43,7 +43,7 @@ function PromoTile({
   );
 }
 
-export function EditorialGrid({ deal }: { deal: Deal | null }) {
+export function EditorialGrid({ deals }: { deals: Deal[] }) {
   return (
     <section className="container-page py-16 sm:py-20">
       <div className="grid gap-4 lg:grid-cols-2 lg:items-stretch">
@@ -82,25 +82,24 @@ export function EditorialGrid({ deal }: { deal: Deal | null }) {
             </Reveal>
           </div>
 
-          <Reveal delay={0.2}>
-            <div className="relative flex min-h-[180px] items-center overflow-hidden bg-ink">
-              <PlaceholderImage seed="sale-banner" className="absolute inset-0 h-full w-full opacity-40" />
-              <div className="relative flex w-full flex-col items-start gap-4 p-7 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <h3 className="font-heading text-2xl text-cream sm:text-3xl">{deal?.title ?? "Flat 20% Off"}</h3>
-                  <p className="mt-2 max-w-sm text-sm text-cream/80">
-                    {deal?.description ?? "On selected items. Limited time only."}
-                  </p>
+          {deals.map((deal) => (
+            <Reveal key={deal.id} delay={0.2}>
+              <div className="relative flex min-h-[180px] items-center overflow-hidden bg-ink">
+                {deal.imageUrl ? (
+                  // Admin media URLs may include images outside Next's configured optimizer domains.
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={deal.imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-40" />
+                ) : <PlaceholderImage seed="sale-banner" className="absolute inset-0 h-full w-full opacity-40" />}
+                <div className="relative flex w-full flex-col items-start gap-4 p-7 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <h3 className="font-heading text-2xl text-cream sm:text-3xl">{deal.title}</h3>
+                    <p className="mt-2 max-w-sm text-sm text-cream/80">{deal.description}</p>
+                  </div>
+                  <Button nativeButton={false} variant="secondary" size="lg" className="rounded-none px-7" render={<Link href={deal.ctaHref}>{deal.ctaLabel}</Link>} />
                 </div>
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  className="rounded-none px-7"
-                  render={<Link href={deal?.ctaHref ?? "/new-in"}>{deal?.ctaLabel ?? "Shop Now"}</Link>}
-                />
               </div>
-            </div>
-          </Reveal>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

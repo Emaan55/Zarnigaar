@@ -38,6 +38,26 @@ export function ProductForm({ action, categories, product, status = "active", su
         <Textarea id="description" name="description" rows={4} defaultValue={product?.description} required />
       </div>
 
+      <div className="grid gap-1.5">
+        <Label htmlFor="fabricDetails">Fabric details</Label>
+        <Textarea id="fabricDetails" name="fabricDetails" rows={3} maxLength={10000} defaultValue={product?.fabricDetails} />
+      </div>
+
+      <div className="grid gap-1.5">
+        <Label htmlFor="additionalDetails">Additional article details</Label>
+        <Textarea id="additionalDetails" name="additionalDetails" rows={3} maxLength={10000} defaultValue={product?.additionalDetails} />
+      </div>
+
+      <div className="grid gap-1.5">
+        <Label htmlFor="careInstructions">Care instructions</Label>
+        <Textarea id="careInstructions" name="careInstructions" rows={3} maxLength={10000} defaultValue={product?.careInstructions} />
+      </div>
+
+      <div className="grid gap-1.5">
+        <Label htmlFor="designPhilosophy">Design philosophy</Label>
+        <Textarea id="designPhilosophy" name="designPhilosophy" rows={3} maxLength={10000} defaultValue={product?.designPhilosophy} />
+      </div>
+
       <div className="grid gap-6 sm:grid-cols-3">
         <div className="grid gap-1.5">
           <Label htmlFor="price">Price (Rs.)</Label>

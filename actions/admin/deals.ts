@@ -1,20 +1,11 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { z } from "zod";
+import type { z } from "zod";
+import { dealSchema } from "@/lib/validation/deal";
 import { requireAdmin } from "@/lib/require-admin";
 import type { FormState } from "@/actions/admin/categories";
 
-const dealSchema = z.object({
-  title: z.string().min(2, "Title is required"),
-  description: z.string().optional(),
-  imageUrl: z.string().optional(),
-  ctaLabel: z.string().optional(),
-  ctaHref: z.string().optional(),
-  startsAt: z.string().optional(),
-  endsAt: z.string().optional(),
-  active: z.string().optional(),
-});
 
 function toDbPayload(data: z.infer<typeof dealSchema>) {
   return {
@@ -23,8 +14,8 @@ function toDbPayload(data: z.infer<typeof dealSchema>) {
     image_url: data.imageUrl || null,
     cta_label: data.ctaLabel || null,
     cta_href: data.ctaHref || null,
-    starts_at: data.startsAt || null,
-    ends_at: data.endsAt || null,
+    ...(data.startsAt !== undefined ? { starts_at: data.startsAt || null } : {}),
+    ...(data.endsAt !== undefined ? { ends_at: data.endsAt || null } : {}),
     active: data.active === "on",
   };
 }
@@ -60,5 +51,6 @@ export async function deleteDeal(id: string) {
   const { error } = await supabase.from("deals").delete().eq("id", id);
   if (error) return { ok: false, message: error.message };
   revalidatePath("/admin/deals");
+  revalidatePath("/");
   return { ok: true };
 }

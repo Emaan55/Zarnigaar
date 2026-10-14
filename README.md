@@ -110,3 +110,45 @@ and cannot be verified without access to the test inbox.
 - **Guest vs. authenticated wishlist**: guests get a `localStorage`-backed wishlist (`hooks/use-wishlist.ts`); signed-in users get one persisted in Supabase (`wishlists` / `wishlist_items`, RLS-scoped to the owner). `WishlistButton` picks whichever applies per viewer.
 - **Product images**: placeholders (`components/shared/placeholder-image.tsx`) render for any product without uploaded photos, so the site never fakes photography. Upload real images per-product from `/admin/products/[id]`.
 - **Shipping/coupons**: flat-rate shipping with a free-shipping threshold lives in `lib/pricing.ts` — adjust `FLAT_SHIPPING_RATE` / `FREE_SHIPPING_THRESHOLD` there. Checkout always re-prices and re-validates stock/coupons server-side (`actions/checkout.ts`), never trusting client-submitted totals.
+
+## Admin content management
+
+Use `/admin/products` to create articles with name, description, fabric details,
+additional article details, sizes, colors, care instructions, design philosophy,
+price, stock and publication status. Save a new article first, then upload its
+photos from the edit page. Draft and archived articles remain hidden from the
+storefront. Optional detail sections appear on the product page when populated.
+
+Before deploying these article fields, apply
+`supabase/migrations/0006_article_details.sql` in the Supabase SQL Editor after
+migrations 0001–0005. This additive migration preserves existing products and
+uses their existing admin write policies. It has not been applied automatically
+to the hosted project.
+
+Use `/admin/deals` to upload a promotion image (PNG, JPEG, WebP or AVIF, up to
+5 MB), set its title, description, CTA label and destination, and activate or
+hide it. Destinations accept site paths such as `/women` or HTTPS links. All
+active deals within their stored date window appear on the homepage. Uploads
+require the `media` bucket and admin policies from migration 0003.
+
+Use `/admin/customers` to view registered account email, name, signup date,
+latest sign-in date and confirmation status, with 50 accounts per page.
+Dates use Pakistan time. This screen is admin-only and requires the server-side
+`SUPABASE_SERVICE_ROLE_KEY` in Vercel's environment settings. It does not expose
+credentials, list live visitors, or retain a history of every sign-in.
+
+Validation commands:
+
+```bash
+npm run lint
+npx --no-install next typegen
+npx --no-install tsc --noEmit
+node --experimental-strip-types --test tests/admin-content.test.mjs
+npm run build
+```
+
+After configuring the database and environment, verify with an admin account:
+create a draft article with all detail fields, upload photos, publish it and
+check its product page; create and edit multiple deals and check their images
+and CTA destinations on the homepage; open Customers and check pagination.
+Confirm a customer account cannot access any admin page or invoke admin writes.
