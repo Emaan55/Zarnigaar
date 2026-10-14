@@ -63,6 +63,34 @@ npm run dev
 
 Visit [http://localhost:3000](http://localhost:3000). Without real Supabase keys configured, catalog/data queries fail gracefully to empty states — the homepage, navigation and layout still render so you can preview the design immediately.
 
+## Password recovery email setup
+
+The login page includes **Forgot password?**: enter an email, verify the recovery
+code, then enter and confirm a new password. Recovery uses Supabase's
+`resetPasswordForEmail`, `verifyOtp` with `type: "recovery"`, and `updateUser`.
+The recovery session stays in memory; refreshing or leaving the form requires
+requesting another code. No service-role key is exposed to the browser.
+
+In Supabase **Authentication → Email Templates → Reset Password**, configure
+the email body to display the OTP rather than only a confirmation link:
+
+```html
+<h2>Reset your Zarnigaar password</h2>
+<p>Enter this verification code on the page where you requested your reset:</p>
+<p><strong>{{ .Token }}</strong></p>
+<p>If you did not request this, you can ignore this email.</p>
+```
+
+Configure custom SMTP for production email delivery; the built-in sender's
+email restrictions and rate limits also apply to recovery emails. Keep OTP
+expiry and rate limits enabled. The form accepts numeric codes of 6–10 digits.
+
+With a test account, validate: email delivery; incorrect and expired codes
+cannot unlock the password form; mismatched passwords cannot be submitted;
+a correct code permits updating the password; the new password signs in and
+the old password no longer works. Live delivery requires Supabase configuration
+and cannot be verified without access to the test inbox.
+
 ## Project structure
 
 ```

@@ -16,12 +16,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { signIn, signUp } from "@/actions/auth";
+import { ForgotPasswordForm } from "@/components/auth/forgot-password-form";
 import { signInSchema, signUpSchema, type SignInInput, type SignUpInput } from "@/lib/validation/auth";
 
 export function LoginForm({ redirectTo }: { redirectTo: string }) {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [forgotPassword, setForgotPassword] = useState(false);
 
   const signInForm = useForm<SignInInput>({
     resolver: zodResolver(signInSchema),
@@ -50,6 +52,10 @@ export function LoginForm({ redirectTo }: { redirectTo: string }) {
     if (!result.ok) return setError(result.message ?? "Could not create account.");
     router.push(redirectTo);
     router.refresh();
+  }
+
+  if (forgotPassword) {
+    return <ForgotPasswordForm onBack={() => { setForgotPassword(false); setError(null); }} />;
   }
 
   return (
@@ -93,6 +99,9 @@ export function LoginForm({ redirectTo }: { redirectTo: string }) {
               )}
             />
             {error && <p className="text-sm text-destructive">{error}</p>}
+            <button type="button" className="self-end text-sm underline underline-offset-4" disabled={loading} onClick={() => setForgotPassword(true)}>
+              Forgot password?
+            </button>
             <Button type="submit" size="lg" className="rounded-none" disabled={loading}>
               {loading ? "Signing in..." : "Sign In"}
             </Button>
