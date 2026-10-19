@@ -56,7 +56,7 @@ export function ProductImagesManager({ productId, images }: { productId: string;
       ) : (
         <div className="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-4">
           {images.map((img) => (
-            <div key={img.id} className="group relative aspect-[3/4] overflow-hidden border border-border">
+            <div key={img.id} className="group relative aspect-[9/16] overflow-hidden border border-border">
               <Image src={img.url} alt={img.alt} fill sizes="150px" className="object-cover" />
               <button
                 onClick={async () => {

@@ -17,7 +17,7 @@ export function ProductGallery({ images, seed, name }: { images: ProductImage[];
             <button
               key={img.id}
               onClick={() => setActive(i)}
-              className={`relative h-16 w-14 shrink-0 overflow-hidden border ${i === active ? "border-ink" : "border-border"}`}
+              className={`relative aspect-[9/16] w-12 shrink-0 overflow-hidden border ${i === active ? "border-ink" : "border-border"}`}
               aria-label={`View image ${i + 1}`}
             >
               <Image src={img.url} alt={img.alt || name} fill sizes="60px" className="object-cover" />
@@ -25,7 +25,7 @@ export function ProductGallery({ images, seed, name }: { images: ProductImage[];
           ))}
         </div>
       )}
-      <div className="relative flex-1 aspect-[3/4] overflow-hidden bg-beige">
+      <div className="relative flex-1 aspect-[9/16] overflow-hidden bg-beige">
         {current ? (
           <Image src={current.url} alt={current.alt || name} fill sizes="(min-width: 1024px) 45vw, 100vw" priority className="object-cover" />
         ) : (
