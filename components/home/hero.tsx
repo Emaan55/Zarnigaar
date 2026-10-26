@@ -25,7 +25,7 @@ export function Hero() {
               Timeless Elegance, Everyday.
             </h1>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-ink/75">
-              Effortless silhouettes, premium fabrics and signature scarves for the modern woman.
+              Explore the latest clothing and scarves from Zarnigaar.
             </p>
             <Button
               size="lg"

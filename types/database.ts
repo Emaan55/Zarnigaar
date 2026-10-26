@@ -407,6 +407,12 @@ export interface Database {
           },
         ];
       };
+      product_reviews: {
+        Row: { id: string; product_id: string; user_id: string; display_name: string; rating: number; body: string; created_at: string };
+        Insert: { product_id: string; user_id: string; display_name: string; rating: number; body: string };
+        Update: never;
+        Relationships: [];
+      };
       contact_messages: {
         Row: { id: string; name: string; email: string; message: string; created_at: string };
         Insert: { id?: string; name: string; email: string; message: string };
@@ -414,7 +420,12 @@ export interface Database {
         Relationships: [];
       };
     };
-    Views: Record<string, never>;
+    Views: {
+      product_review_stats: {
+        Row: { product_id: string; review_count: number; average_rating: number };
+        Relationships: [];
+      };
+    };
     Functions: Record<string, never>;
     Enums: Record<string, never>;
     CompositeTypes: Record<string, never>;

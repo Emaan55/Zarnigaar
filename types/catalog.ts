@@ -31,6 +31,8 @@ export interface Product {
   isSoldOut: boolean;
   images: ProductImage[];
   createdAt: string;
+  averageRating?: number | null;
+  reviewCount?: number;
 }
 
 export interface Category {

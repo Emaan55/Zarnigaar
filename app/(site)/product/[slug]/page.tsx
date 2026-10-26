@@ -1,3 +1,4 @@
+import { ProductReviews } from "@/components/reviews/product-reviews";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProductGallery } from "@/components/product/gallery";
@@ -18,10 +19,15 @@ export async function generateMetadata({
 
 export default async function ProductDetailPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ reviewsPage?: string }>;
 }) {
   const { slug } = await params;
+  const query = await searchParams;
+  const requestedPage = Number(query.reviewsPage ?? 1);
+  const reviewPage = Number.isSafeInteger(requestedPage) && requestedPage > 0 && requestedPage <= 10000 ? requestedPage : 1;
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 
@@ -44,6 +50,8 @@ export default async function ProductDetailPage({
           <DeliveryInfo />
         </div>
       </div>
+
+      <ProductReviews productId={product.id} slug={product.slug} page={reviewPage} />
 
       {related.length > 0 && (
         <div className="mt-20">

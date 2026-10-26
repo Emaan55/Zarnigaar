@@ -29,7 +29,7 @@ export function ProductForm({ action, categories, product, status = "active", su
         </div>
         <div className="grid gap-1.5">
           <Label htmlFor="slug">Slug</Label>
-          <Input id="slug" name="slug" defaultValue={product?.slug} placeholder="embroidered-lawn-suit" required />
+          <Input id="slug" name="slug" defaultValue={product?.slug} placeholder="article-name" required />
         </div>
       </div>
 

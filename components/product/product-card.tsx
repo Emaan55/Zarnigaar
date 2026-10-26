@@ -85,6 +85,9 @@ export function ProductCard({ product }: { product: Product }) {
           )}
         </div>
       </Link>
+      <Link href={`/product/${product.slug}#reviews`} className="mt-2 text-xs text-muted-foreground underline-offset-4 hover:underline">
+        {product.reviewCount === undefined ? "Reviews & ratings" : product.reviewCount > 0 ? `★ ${Number(product.averageRating).toFixed(1)} / 5 (${product.reviewCount})` : "No reviews yet"}
+      </Link>
     </div>
   );
 }

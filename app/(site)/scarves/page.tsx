@@ -10,7 +10,7 @@ export default async function ScarvesPage() {
 
   return (
     <>
-      <PageHeader title="Scarves" description="Signature printed and woven scarves, finished in lightweight fabrics." />
+      <PageHeader title="Scarves" description="Explore our scarves. Find details on each product page." />
       <div className="container-page py-14">
         <ProductGrid products={products} />
       </div>

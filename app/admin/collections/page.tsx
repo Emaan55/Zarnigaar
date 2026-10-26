@@ -19,7 +19,7 @@ function CollectionFields({ defaults }: { defaults?: { name: string; slug: strin
       </div>
       <div className="grid gap-1.5">
         <Label htmlFor="slug">Slug</Label>
-        <Input id="slug" name="slug" defaultValue={defaults?.slug} placeholder="luxury-lawn" required />
+        <Input id="slug" name="slug" defaultValue={defaults?.slug} placeholder="collection-name" required />
       </div>
       <div className="grid gap-1.5">
         <Label htmlFor="description">Description</Label>

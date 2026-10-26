@@ -4,7 +4,7 @@ import { PlaceholderImage } from "@/components/shared/placeholder-image";
 import { Reveal } from "@/components/shared/reveal";
 
 const FAVORITES = [
-  { seed: "luxury-lawn", label: "Luxury Lawn", description: "Light, breezy, elegant.", href: "/collection/luxury-lawn" },
+  { seed: "clothing", label: "Clothing", description: "Explore our articles.", href: "/women" },
   { seed: "embroidered", label: "Embroidered", description: "Classic details, timeless appeal.", href: "/collection/embroidered" },
   { seed: "scarves-fav", label: "Scarves", description: "Versatile, stylish, essential.", href: "/scarves" },
   { seed: "ready-to-wear-fav", label: "Ready to Wear", description: "Modern cuts, graceful fits.", href: "/collection/ready-to-wear" },

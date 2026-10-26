@@ -4,14 +4,14 @@
 -- render a soft placeholder until then. Safe to skip or edit before running.
 
 insert into public.categories (slug, name, description) values
-  ('clothing', 'Clothing', 'Lawn suits, co-ord sets and embroidered pieces.'),
+  ('clothing', 'Clothing', 'Explore our clothing articles.'),
   ('scarves', 'Scarves', 'Signature printed and woven scarves.'),
   ('dupattas', 'Dupattas', 'Embellished and embroidered dupattas.'),
   ('accessories', 'Accessories', 'Bags and finishing pieces.')
 on conflict (slug) do nothing;
 
 insert into public.collections (slug, name, description) values
-  ('luxury-lawn', 'Luxury Lawn', 'Light, breezy, elegant lawn for every day.'),
+  ('luxury-lawn', 'Clothing Selection', 'Explore the articles in this collection.'),
   ('embroidered', 'Embroidered', 'Classic embroidery, timeless appeal.'),
   ('ready-to-wear', 'Ready to Wear', 'Comfort meets elegance in every piece.')
 on conflict (slug) do nothing;
@@ -21,11 +21,11 @@ select v.slug, v.name, v.description, v.price, v.sale_price, v.sku, v.stock,
        (select id from public.categories where slug = v.category_slug),
        v.sizes, v.colors, v.is_new, v.is_featured
 from (values
-  ('embroidered-lawn-suit', 'Embroidered Lawn Suit', 'A three-piece embroidered lawn suit with delicate floral motifs, finished with a matching dupatta.', 8990, null::numeric, 'ZN-CL-001', 25, 'clothing', array['XS','S','M','L','XL'], array['Black','Ivory'], true, true),
-  ('linen-co-ord-set', 'Linen Co-ord Set', 'A relaxed linen co-ord set tailored for effortless everyday elegance.', 6490, null, 'ZN-CL-002', 18, 'clothing', array['S','M','L','XL'], array['Ivory'], true, false),
-  ('printed-lawn-suit', 'Printed Lawn Suit', 'Hand-finished printed lawn suit with contrast piping and a printed dupatta.', 5990, null, 'ZN-CL-003', 30, 'clothing', array['XS','S','M','L'], array['Blue'], true, false),
-  ('solid-lawn-suit', 'Solid Lawn Suit', 'A solid-tone lawn suit with subtle self-embroidery along the neckline.', 6990, null, 'ZN-CL-004', 22, 'clothing', array['S','M','L','XL'], array['Sage'], true, false),
-  ('signature-scarf', 'Signature Scarf', 'Our signature printed scarf in lightweight silk-blend fabric.', 2990, null, 'ZN-SC-001', 40, 'scarves', array['One Size'], array['Multi'], true, true),
+  ('embroidered-lawn-suit', 'Embroidered Suit', 'See the article details provided by Zarnigaar.', 8990, null::numeric, 'ZN-CL-001', 25, 'clothing', array['XS','S','M','L','XL'], array['Black','Ivory'], true, true),
+  ('linen-co-ord-set', 'Co-ord Set', 'See the article details provided by Zarnigaar.', 6490, null, 'ZN-CL-002', 18, 'clothing', array['S','M','L','XL'], array['Ivory'], true, false),
+  ('printed-lawn-suit', 'Printed Suit', 'See the article details provided by Zarnigaar.', 5990, null, 'ZN-CL-003', 30, 'clothing', array['XS','S','M','L'], array['Blue'], true, false),
+  ('solid-lawn-suit', 'Solid Suit', 'See the article details provided by Zarnigaar.', 6990, null, 'ZN-CL-004', 22, 'clothing', array['S','M','L','XL'], array['Sage'], true, false),
+  ('signature-scarf', 'Signature Scarf', 'See the article details provided by Zarnigaar.', 2990, null, 'ZN-SC-001', 40, 'scarves', array['One Size'], array['Multi'], true, true),
   ('embroidered-suit', 'Embroidered Suit', 'A statement embroidered suit in rich jewel tones for special occasions.', 9990, 8490, 'ZN-CL-005', 12, 'clothing', array['S','M','L'], array['Rose'], false, true),
   ('classic-woven-dupatta', 'Classic Woven Dupatta', 'A finely woven dupatta with jacquard border detailing.', 3490, null, 'ZN-DP-001', 20, 'dupattas', array['One Size'], array['Beige'], false, false),
   ('embroidered-tote', 'Embroidered Tote', 'A structured tote finished with hand embroidery, for everyday carry.', 5490, null, 'ZN-AC-001', 15, 'accessories', array['One Size'], array['Black'], false, false)
@@ -61,5 +61,5 @@ insert into public.faqs (question, answer, category, position) values
   ('What is your return policy?', 'Unused items in original condition with tags attached can be returned within 7 days of delivery.', 'returns', 1),
   ('How do I exchange an item?', 'Reach out via our Contact page with your order number and we will arrange a size or item exchange.', 'exchanges', 1),
   ('How do I find my size?', 'Refer to the Size Guide on every product page for detailed measurements.', 'sizing', 1),
-  ('Are your fabrics pre-shrunk?', 'Our lawn and cotton pieces are pre-washed; we still recommend following the care label for longevity.', 'products', 1)
+  ('Are your fabrics pre-shrunk?', 'Refer to the fabric details and care instructions provided for each article. Contact us if you need more information.', 'products', 1)
 on conflict do nothing;

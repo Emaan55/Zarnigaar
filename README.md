@@ -152,3 +152,40 @@ create a draft article with all detail fields, upload photos, publish it and
 check its product page; create and edit multiple deals and check their images
 and CTA destinations on the homepage; open Customers and check pagination.
 Confirm a customer account cannot access any admin page or invoke admin writes.
+
+## Product reviews and owner-provided fabric details
+
+Fabric information is entered manually in the article editor. Storefront copy
+and starter content must not infer a material, composition or fabric treatment.
+The optional starter seed uses neutral descriptions; existing URLs are retained
+so product links continue to work.
+
+Apply migrations in order after 0006:
+
+- `0007_product_reviews.sql`: review table, database validation, ownership
+  policies and a rating summary view that respects row-level security.
+- `0008_remove_starter_fabric_claims.sql`: replace only exact original starter
+  fabric claims. Custom names/descriptions are preserved, as are URL slugs.
+
+These migrations have not been applied to the hosted Supabase project.
+Without 0007, product browsing still works and the reviews section reports
+that reviews are unavailable rather than showing fabricated ratings.
+
+Customers can read reviews without signing in. Writing requires an authenticated
+account, a public display name, 1–5 stars and a 10–2,000 character review. Each
+account can submit one review per product. Reviews are published immediately;
+they are not labeled as verified purchases. Product cards show real aggregate
+ratings and link to the review section. Product pages show ten reviews per page.
+
+Run validation with `node --experimental-strip-types --test tests/*.test.mjs`.
+For isolated PostgreSQL policy/migration checks (no hosted database access):
+
+```bash
+npm install --prefix /tmp/zarnigaar-review-db --cache /workspace/.npm --no-audit --no-fund @electric-sql/pglite
+PGLITE_MODULE=/tmp/zarnigaar-review-db/node_modules/@electric-sql/pglite/dist/index.js node tests/reviews-db.mjs
+```
+
+After applying migrations, test review submission using a real signed-in test
+account, verify it appears on its product page and rating card, and confirm a
+second submission is rejected. Also check that a signed-out visitor can read
+reviews and is prompted to sign in before posting.
